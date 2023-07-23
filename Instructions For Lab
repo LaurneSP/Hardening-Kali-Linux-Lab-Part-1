@@ -1,0 +1,294 @@
+Welcome to the Hardening Kali Linux lab. 
+
+To work in cybersecurity, you need to understand Linux. It’s an open-source operating system running on most network devices, security applications, and cloud-based servers. Thus, you’ll need to know Linux if you want to strengthen their security or collect their security data. 
+
+Kali Linux is one of the most popular Linux distributions for penetration testing, ethical hacking, and other digital forensics. It comes with an array of standard cybersecurity tools pre-installed. Plus, it’s easy to use, and you can run it from Windows or macOS as a virtual machine. A virtual machine (VM) is a purely software-based version of a computer and OS that runs inside a device’s actual OS.
+
+In this lab, you will harden a Kali Linux system. Hardening is the process in which you secure a device by eliminating its vulnerabilities. Some examples of these vulnerabilities include outdated software, default passwords, and weak firewall configuration. Hardening system devices reduces the system’s attack surface, the set of points on the system’s perimeter exposed to a potential cyberattack. Keeping the attack surface as small as possible is an essential security measure.
+
+You will first install VirtualBox. VirtualBox is a hypervisor, an application that you can use to run a virtual OS within your computer’s actual OS. Next, you’ll install a Kali Linux VM in VirtualBox. Once Kali Linux is running, you’ll use its command line and graphical user interface (GUI) to harden the OS. You’ll update the operating system, change the default user password, add user accounts, manage user groups, and configure the firewall.
+
+
+Learning objectives
+After completing this lab, you will be able to:
+
+Install and run a Kali Linux VM using VirtualBox
+
+Update Kali Linux OS  and its applications  
+
+Change the default user password in Kali Linux OS
+
+Add a new user to a Kali Linux system
+
+Manage user groups in a Kali Linux system
+
+Configure a Linux firewall using the ufw application
+
+What you’ll need
+A computer meeting these minimum requirements:
+
+Windows, macOS, or Linux operating system
+
+8 GB of RAM
+
+2.6 GB of storage space
+
+A file archiver application for extracting the contents of a zip file. Examples include but are not limited to 
+7-Zip
+ for Windows and Linux and 
+Keka
+ for macOS.
+
+Windows only: Install the Microsoft Visual C++ Redistributable package for Visual Studio
+To install VirtualBox on Windows, you must first install the Microsoft Visual C++ Redistributable package, and then restart your computer.
+
+1. Access 
+https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170#visual-studio-2015-2017-2019-and-2022
+.
+
+2. In the table, click the link for X64.
+
+
+  3. Once the download completes, open the file.
+
+
+4. The Installation wizard opens. Scroll to the end of the software license terms, and then select the checkbox to agree to the license terms and conditions. Next, click Install.  
+
+
+5. Once installation completes, restart your computer.  
+
+
+Task 1: Install VirtualBox
+1. Access 
+https://www.virtualbox.org/
+.
+
+2. Click the Download button.  
+
+
+3. On the Download VirtualBox page, click the link to the package for your host’s operating system. A host is a device on which you run a hypervisor. In this lab, the host is the computer on which you will install and run VirtualBox.  
+
+
+4. When the download completes, open the file to run the executable. The Setup Wizard opens.  
+
+
+5. Click Next.  
+
+
+6.    In the Custom Setup window, click Next.  
+
+
+7. A window will open, warning that installation will temporarily interrupt your network connection. Click Yes to proceed with the installation.  
+
+
+8. If you receive a message about installing missing dependencies, click Yes.  
+
+
+9. In the Ready to Install window, click Install.  
+
+
+10. The Setup Wizard will start installation.  
+
+
+11. You will receive a completion message when the installation has finished. You can clear the checkbox since you will not use VirtualBox just yet. Click Finish to exit the Setup Wizard.  
+
+
+Task 2: Install and boot up a Kali Linux VM
+Now you will download and install a pre-built Kali Linux VM.
+
+1. Access 
+https://www.kali.org/
+.
+
+2.   Click Download.  
+
+
+3.    Click Virtual Machines.
+
+
+4.    Click VirtualBox 64. If you prefer to use a torrent application for your download, click the torrent button for VirtualBox 64.
+
+
+The file size is 2.4 GB, so the download could take a few minutes, depending on your internet speed.
+
+5.    Once the download is complete, navigate to the folder or directory into which you downloaded the file. In this demonstration, the location is the Downloads folder.  
+
+
+6.    Using your file archiver, extract the downloaded file’s contents to a folder or directory of your choice. For example, if using 7-Zip, you can right-click the file, and then click 7-Zip > Extract to [name of file]. These steps will create a folder with the same name as the file, and then extract the file’s contents into that folder.  
+
+
+7.    Now you’ll set up this VM in VirtualBox. Open VirtualBox.
+
+
+8.    The VirtualBox Manager is displayed. Click Add.
+
+
+9.    Navigate to the recently extracted Kali Linux files. Next, click the VirtualBox Machine Definition (.vbox) file for Kali Linux, and then click Open.
+
+
+10.    A Kali Linux VM is displayed in your VirtualBox Manager, and the VM’s specifications and settings are displayed in the manager. Click Start to start the VM.
+
+
+11. The VM may take up to a minute to boot into the OS. Once the login screen is displayed, type kali in both the user ID and password fields, and then click Log In.
+
+
+12.    The Kali Linux desktop is displayed.
+
+
+  13. Optional: You can switch from windowed mode to full-screen mode if preferred. Doing so hides the VirtualBox taskbar and toolbar.
+
+From the VirtualBox taskbar, click View > Full-screen Mode.
+
+
+A pop-up window explains that you are switching to full-screen mode and provides instructions for switching back to windowed mode. Click Switch.
+
+
+The Kali Linux desktop is displayed in full-screen mode.
+
+
+Task 3: Update the operating system and applications
+You should ensure that all your OSs and applications have the latest security updates, and Linux is no exception. When using Debian-based Linux distributions like Kali Linux, you can upgrade the system using the Advanced Package Tool (apt), a package manager.
+
+1. In the command line window, type sudo apt update, and then press Enter. Type your password if prompted, and then press Enter.
+
+
+This command has multiple parts:
+
+The sudo command provides elevated privileges like the Run as Administrator option in Windows. You need elevated privileges to update the system using the apt command.
+
+The apt command calls on apt.
+
+The update argument instructs apt to download and output information about updates for existing packages.
+
+2. A list of the downloaded update packages is displayed.
+
+
+3. Type sudo apt full-upgrade, and then press Enter.
+
+
+The apt full-upgrade command applies available updates to your existing packages. It also removes previously installed packages as needed to upgrade the entire system.
+
+4. The window displays several pieces of information.
+
+All new and upgraded packages
+
+The size of the additional archives that apt must download to complete the upgrade
+
+The net hard disk space required
+
+
+5. The window displays the question, “Do you want to continue?” Type y, and then press Enter.
+
+
+6. The window displays the progress of the system upgrade. This process could take several minutes.
+
+
+7. One or more “Package configuration” windows might open during the upgrade. If so, follow these instructions:
+
+The “Configuring libc6:amd64” window might open. The text explains that upgrading some packages requires restarting associated services. Instead of prompting you for your permission to restart each service, one at a time, apt can automatically restart these services for you.
+
+            Use your arrow keys to scroll to the end of the text and select Ok, and then press Enter.
+
+
+
+The window displays the question, “Restart services during package upgrades without asking?” Use your arrow keys to select Yes, and then press Enter.
+
+
+The “Configuring postgresql-common” window might open. The text explains that you should install the latest PostgreSQL packages and upgrade existing clusters. Use your arrow keys to scroll to the end of the text and select Ok, and then press Enter.
+
+
+If any other package configuration window opens, use your arrow keys to scroll through the text and select options such as Ok or Yes. Next, press Enter.
+
+8. All package updates should be complete.
+
+
+Task 4: Change the default user password
+Now you’ll perform administrative tasks using the command line and graphical user interface (GUI). At first, the GUI might be easier to use because of your familiarity with similar interfaces in Windows or macOS. But with the command line, you have more flexibility to customize your commands and can write scripts to automate repetitive tasks.
+
+Your first task is to change your default user password, which you should always change for security purposes. Note that you can follow these instructions to change any password, not just the password for the default user.
+
+Change the default user password using the command line
+1. To open the command line, press Ctrl+Alt+T or click the Terminal Emulator icon on the taskbar.
+
+
+2. The command line is displayed.
+
+
+3. Type passwd, and then press Enter. When prompted to provide your current password, type kali, and then press Enter.
+
+
+4. Create a new password and make it strong. Ensure it has at least 12 characters and includes uppercase and lowercase letters as well as numbers and symbols. Type 125Js#e1dXA& or a similar password, and then press Enter. Retype the password when prompted, and then press Enter.
+
+
+You should receive a message indicating that you have updated your password successfully.
+
+Change the default user password using the GUI
+1. To change the default user password using the GUI, first, click the Applications icon on the taskbar.
+
+
+2. Next, click Usual Applications > System > Users and Groups.
+
+
+3. The User Settings window opens. Select kali from the list of users, and then click the Change link for Password.
+
+
+4. The Change User Password window is displayed.
+
+
+5. Optional: Change your password for the second time. To do so, type your current password in the Current password field. Next, type your new password in the New password field and retype it in the Confirmation field. Finally, click OK.
+
+
+6. If a pop-up window opens and prompts you to decide whether to update content, click Yes.
+
+
+7. Click Close in the User Settings window.
+
+
+Task 5: Add a new user
+Access control is a crucial component of cybersecurity administration, and the most widely used access control method is role-based. In role-based access control (RBAC), a person’s access to system resources depends on their role, the collection of permissions granted to them. With a Linux system, you give each employee a user account and grant permissions to that account appropriate for the employee’s role.
+
+For example, assume you have a new human resources (HR) employee, Ima G. Worker, and Ima needs access to the HR directory on the server. This directory contains sensitive employee data to which only HR employees should have access. You can give Ima a user account, such as imagw, and then grant that user access to the HR directory. Ima will now have access to that directory when she logs into the system using her user account.
+
+In this task, you’ll add a new user to the system.
+
+Add a new user using the command line
+In the command line window, type sudo useradd test, and then press Enter. Type your password when prompted, and then press Enter.
+
+
+This command has multiple parts:
+
+The useradd command adds a new user to the system.
+
+The test argument specifies the name of the new user that you are adding to the system: “test”. An argument is a value passed into a command.
+
+2. Now you’ll set a password for the new user. Type sudo passwd test, and then press Enter. Type your password when prompted, and then press Enter.
+
+
+3. Type the new password for test when prompted, and then press Enter. Retype the password when prompted, and then press Enter.
+
+
+Add a new user using the GUI
+1. To add a new user using the GUI, you must use the User Settings application again. First, click the Applications icon on the taskbar.
+
+
+2. Click Usual Applications > System > Users and Groups.
+
+
+3. The User Settings window opens, and two users are displayed: the original username, kali, and the account that you just created, test. Now you’ll create a third user account. Click Add.
+
+
+4. Type your kali user password when prompted, and then click Authenticate.
+
+
+5. The Create New User window is displayed. Type Test Two in the Name field and test2 in the Username field. Next, click OK.
+
+
+6. The Change User Password window is displayed. You could create a new password yourself, but for this lab, you will have the application generate the password. Click Generate random password, and then click OK.
+
+
+7. Back in the User Settings window, now three users are displayed: kali, test, and Test Two.
+
+
+8. Click Close to exit the Users and Groups application.
+
+Click the next arrow to continue the steps in this lab.
